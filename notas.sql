@@ -56,5 +56,10 @@ SELECT x.*, y.*
 FROM x
 JOIN y
 ON x.id = y.account_id
-
-
+ # puedes hacerlo con multiples tablas
+SELECT x.*, y.*, z.*
+FROM x
+JOIN y
+ON x.id = y.account_id
+JOIN z
+ON x.id = z.account_id
