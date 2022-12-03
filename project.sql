@@ -25,7 +25,8 @@ WHERE region NOT LIKE 'WORLD'
 GROUP BY year
 HAVING year IN (1990, 2016) 
 
-/*d. What was the percent change in forest area of the world between 1990 and 2016?*/
+/*c. What was the change (in sq km) in the forest area of the world from 1990 to 2016?
+*/
 SELECT region,
 ((SELECT SUM(forest_area_sqkm) total_forest_area
  FROM forestation 
