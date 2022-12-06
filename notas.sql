@@ -143,5 +143,47 @@ FROM orders
 HAVING DATE_PART('year',occurred_at) IN('2016','2017')
 
 # ejemplo de redondear
-ROUND(parametro,decimales)
-ROUND(AVG(x),2) #entonces de 2.123124134 te devuelve 2.12
+ROUND( x,zzzzzzz ::numeric, 2)  resultado = x,zz
+
+CREATE VIEW <VIEW_NAME>
+AS
+SELECT …
+FROM …
+WHERE …
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
