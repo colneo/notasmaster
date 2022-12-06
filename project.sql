@@ -127,7 +127,8 @@ WITH forest_area_1
         (SELECT r_name rn_2, n_year ny_2, ROUND( percent_forest_area::numeric, 2) percent_forest_2
         FROM percent_forest
         WHERE n_year = 2016 AND r_name NOT LIKE 'World')
-SELECT f2.rn_2 region, f1.percent_forest_1 percent_forest_1990,  f2.percent_forest_2 percent_forest_2016
+SELECT f2.rn_2 region, f1.percent_forest_1 percent_forest_1990,  f2.percent_forest_2 percent_forest_2016,
+       (f1.percent_forest_1 - f2.percent_forest_2) total_percent_lost
 FROM forest_area_1 f1
 JOIN forest_area_2 f2
 ON f1.rn_1 = f2.rn_2 
