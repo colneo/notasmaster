@@ -81,35 +81,35 @@ GROUP BY r_name, n_year
 
 
 /*a. What was the percent forest of the entire world in 2016?*/
- SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest
+ SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest_world
 FROM percent_forest
 WHERE n_year = 2016 AND r_name LIKE 'World'
  
 /*Which region had the HIGHEST percent forest in 2016*/
- SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest
+ SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest_highest
 FROM percent_forest
 WHERE n_year = 2016 AND r_name NOT LIKE 'World'
 ORDER BY percent_forest_area DESC 
 LIMIT 1
 /*and which had the LOWEST, to 2 decimal places?*/
-SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest
+SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest_lowest
 FROM percent_forest
 WHERE n_year = 2016 AND r_name NOT LIKE 'World'
 ORDER BY percent_forest_area  
 LIMIT 1
 
 /* b. What was the percent forest of the entire world in 1990? */
- SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest
+ SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest_world
 FROM percent_forest
 WHERE n_year = 1990 AND r_name LIKE 'World'
 /*Which region had the HIGHEST percent forest in 1990,*/ 
- SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest
+ SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest_highest
 FROM percent_forest
 WHERE n_year = 1990 AND r_name NOT LIKE 'World'
 ORDER BY percent_forest_area DESC 
 LIMIT 1
 /*and which had the LOWEST, to 2 decimal places?*/
- SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest
+ SELECT r_name ,n_year, ROUND( percent_forest_area::numeric, 2) percent_forest_lowest
 FROM percent_forest
 WHERE n_year = 1990 AND r_name NOT LIKE 'World'
 ORDER BY percent_forest_area 
@@ -117,12 +117,13 @@ LIMIT 1
 
 /*c. Based on the table you created, which regions of the world DECREASED in forest area from 1990 to 2016?*/
 WITH forest_area_1
-AS
+        AS
         (SELECT r_name rn_1, n_year ny_1, ROUND( percent_forest_area::numeric, 2) percent_forest_1
         FROM percent_forest
         WHERE n_year = 1990 AND r_name NOT LIKE 'World'),
-        forest_area_2 
-AS
+        
+     forest_area_2 
+         AS
         (SELECT r_name rn_2, n_year ny_2, ROUND( percent_forest_area::numeric, 2) percent_forest_2
         FROM percent_forest
         WHERE n_year = 2016 AND r_name NOT LIKE 'World')
@@ -136,14 +137,14 @@ HAVING f2.percent_forest_2 < f1.percent_forest_1
 ORDER BY percent_forest_1990 DESC 
 
 
-/* to show tembalte*/
+/* to show report*/
 WITH forest_area_1
-AS
+        AS
         (SELECT r_name rn_1, n_year ny_1, ROUND( percent_forest_area::numeric, 2) percent_forest_1
         FROM percent_forest
         WHERE n_year = 1990 ),
-        forest_area_2 
-AS
+     forest_area_2 
+        AS
         (SELECT r_name rn_2, n_year ny_2, ROUND( percent_forest_area::numeric, 2) percent_forest_2
         FROM percent_forest
         WHERE n_year = 2016 )
@@ -152,7 +153,7 @@ FROM forest_area_1 f1
 JOIN forest_area_2 f2
 ON f1.rn_1 = f2.rn_2 
 GROUP BY f2.rn_2 ,f2.ny_2,f2.percent_forest_2, f1.ny_1, f1.percent_forest_1
-ORDER BY region 
+ORDER BY percent_forest_1990 DESC
 
 
 
