@@ -131,7 +131,7 @@ SELECT f2.rn_2 region, f1.percent_forest_1 percent_forest_1990,  f2.percent_fore
 FROM forest_area_1 f1
 JOIN forest_area_2 f2
 ON f1.rn_1 = f2.rn_2 
-GROUP BY region ,percent_forest_1990, percent_forest_2016
+GROUP BY region, percent_forest_1990, percent_forest_2016
 HAVING f2.percent_forest_2 < f1.percent_forest_1
 ORDER BY percent_forest_1990 DESC 
 
@@ -151,7 +151,7 @@ SELECT f2.rn_2 region, f1.percent_forest_1 percent_forest_1990,  f2.percent_fore
 FROM forest_area_1 f1
 JOIN forest_area_2 f2
 ON f1.rn_1 = f2.rn_2 
-GROUP BY region ,percent_forest_1990, percent_forest_2016
+GROUP BY region, percent_forest_1990, percent_forest_2016
 ORDER BY percent_forest_1990 DESC
 
 
