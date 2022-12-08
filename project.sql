@@ -243,12 +243,12 @@ AS
         WHERE year = 2016 AND country_name NOT LIKE 'World' AND forest_area_sqkm <> 0)
 
 SELECT f1.country_t1 country,f1.region, f1.forest_area_1990, f2.forest_area_2016, 
-        ROUND(((f1.forest_area_1990 - f2.forest_area_2016)*100/f1.forest_area_1990)::numeric, 2) total_percent_decrease_sqkm
+        ROUND(((f1.forest_area_1990 - f2.forest_area_2016)*100/f1.forest_area_1990)::numeric, 2) total_percent_decrease
 FROM forest_area_1990 f1
 JOIN forest_area_2016 f2
 ON f1.country_t1 = f2.country_t2
 GROUP BY country, region, f1.forest_area_1990, f2.forest_area_2016
-ORDER BY total_percent_decrease_sqkm DESC
+ORDER BY total_percent_decrease DESC
 LIMIT 5
 
 /*top countries increase percent forest area 1990 to 2016*/
@@ -266,13 +266,17 @@ AS
         WHERE year = 2016 AND country_name NOT LIKE 'World' AND forest_area_sqkm <> 0)
 
 SELECT f1.country_t1 country,f1.region, f1.forest_area_1990, f2.forest_area_2016, 
-        ROUND(((f2.forest_area_2016 - f1.forest_area_1990)*100/f2.forest_area_2016)::numeric, 2) total_percent_increase_sqkm
+        ROUND(((f2.forest_area_2016 - f1.forest_area_1990)*100/f2.forest_area_2016)::numeric, 2) total_percent_increase
 FROM forest_area_1990 f1
 JOIN forest_area_2016 f2
 ON f1.country_t1 = f2.country_t2
 GROUP BY country, region, f1.forest_area_1990, f2.forest_area_2016
-ORDER BY total_percent_increase_sqkm DESC
+ORDER BY total_percent_increase DESC
 LIMIT 5
+
+
+
+
 /*c. If countries were grouped by percent forestation in quartiles, which group had the most countries in it in 2016?*/
 
 WITH forest_area_2016
@@ -280,7 +284,7 @@ WITH forest_area_2016
         (SELECT country_name country_t2, year year_2016, 
                 ROUND(percent_forest_area) percent_forest_area_2016
         FROM forestation 
-        WHERE year = 2016 AND country_name NOT LIKE 'World'),
+        WHERE year = 2016 AND country_name NOT LIKE 'World' AND percent_forest_area <> 0),
 
         quartile_table 
         AS
@@ -295,21 +299,17 @@ SELECT quartile quartile_group, count(*) total_group_quartile
 FROM quartile_table
 GROUP BY quartile
 ORDER BY total_group_quartile DESC 
-LIMIT 1
+
 
 /*d. List all of the countries that were in the 4th quartile (percent forest > 75%) in 2016.*/
 WITH forest_area_2016
         AS
-        (SELECT country_name country_t2, year year_2016, 
+        (SELECT country_name country_t2, region , year year_2016, 
                 ROUND(percent_forest_area) percent_forest_area_2016
         FROM forestation 
-        WHERE year = 2016 AND country_name NOT LIKE 'World')
+        WHERE year = 2016 AND country_name NOT LIKE 'World' AND percent_forest_area <> 0)
 
-SELECT country_t2 country, percent_forest_area_2016 , 
-                                CASE WHEN percent_forest_area_2016 > 75 THEN 'QUARTILE 4'
-                                WHEN percent_forest_area_2016 > 50 THEN 'QUARTILE 3'
-                                WHEN percent_forest_area_2016 > 25 THEN 'QUARTILE 2'
-                                ELSE 'QUARTILE 1' END AS quartile
+SELECT country_t2 country, region, percent_forest_area_2016 
         FROM forest_area_2016
         WHERE percent_forest_area_2016  > 75
         ORDER BY percent_forest_area_2016 DESC
