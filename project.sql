@@ -39,13 +39,13 @@ HAVING country_name = 'World'
 
 /*d. What was the percent change in forest area of the world between 1990 and 2016?*/
 SELECT country_name, 
- 100-(((SELECT percent_forest_area 
+ROUND((100-(((SELECT percent_forest_area 
       FROM forestation 
       WHERE year = 2016 AND country_name='World') 
                        / 
       (SELECT percent_forest_area 
       FROM forestation 
-      WHERE year = 1990 AND country_name='World')))*100 dif_percent_between_1990_2016
+      WHERE year = 1990 AND country_name='World')))*100)::numeric, 2) dif_percent_between_1990_2016
 FROM forestation
 GROUP BY country_name
 HAVING country_name= 'World'   
