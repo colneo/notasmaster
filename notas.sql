@@ -89,7 +89,11 @@ ON x.id = z.account_id
   # RIGHT JOIN asociada a RIGHT = JOIN  devuelve tabla (JOIN) + INNER JOIN
    # INNER JOIN es el resultado de la union de las dos tablas solo devuelve el match entre las 2 tablas.
    # OUTER JOIN devuelve tabla tando de left como de rigth y del inner en conjunto. esten asosciadas por el condicional (ON) o no
-
+# para inner join podemos usar USING() en vez de ON xxx = xxx
+SELECT x.*, y.*, z.*
+FROM x
+JOIN y
+USING(code)
 
 #  GROUP BY x para agrupar los datos de un AVG o SUM en cada elemento de la columna x ej
 SELECT account_id,
@@ -152,14 +156,26 @@ FROM …
 WHERE …
 
 
+-- otras formas de sumar dos tables
+UNION -- devuelve ambas sin duplicar
+UNION ALL --devuelve ambas y duplicadas
+INTERSECT --solamente devuelve las intersecciones entre dos tablas
+EXCEPT  -- devuelve solo los valores de la tabla en la que no estan los datos en la otra tabla.
+
+
+
+JOIN
+LEFT JOIN 
+RIGHT JOIN  
+CROSS JOIN 
+OUTER JOIN  
+ALL OUTER JOIN 
 
 
 
 
-
-
-
-
+CREATE TEMP TABLE name AS (SELECT .....  
+                            FROM .........)- indagar
 
 
 
