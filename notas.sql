@@ -169,7 +169,7 @@ LEFT JOIN
 RIGHT JOIN  
 CROSS JOIN 
 OUTER JOIN  
-ALL OUTER JOIN 
+ALL  JOIN 
 
 
 
@@ -177,7 +177,21 @@ ALL OUTER JOIN
 CREATE TEMP TABLE name AS (SELECT .....  
                             FROM .........)- indagar
 
+--- windows FUNCTION
+RANK () OVER (ORDER BY x)
 
+calculation over() AS ...
+
+calculation OVER(PARTITION BY x)
+
+calcultion OVER (ORDER BY x  ROW BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW  )--debes decir si es PRECEDING , FOLLOWING  , UNBOUNDED PRECEDING or UNBOUNDED FOLLOWING... CURRENT ROW
+                                         or CURRENT ROW AND UNBOUNDED FOLLOWING 
+
+
+                                         -- las otras son 
+                                         1 PRECEDING AND CURRENT ROW
+                                                    OR
+                                         CURRENT ROW AND 1 FOLLOWING
 
 
 
